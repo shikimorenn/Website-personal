@@ -23,7 +23,6 @@
         min-height: 100vh;
       }
 
-      /* Navbar */
       .header {
         width: 100%;
         padding: 20px 10%;
@@ -56,6 +55,7 @@
         font-size: 28px;
         cursor: pointer;
       }
+
       main {
         flex: 1;
         display: flex;
@@ -93,7 +93,6 @@
         text-align: justify;
       }
 
-      /* Socials */
       .socials {
         display: flex;
         gap: 1rem;
@@ -108,7 +107,6 @@
         color: white;
       }
 
-      /* Form */
       form {
         display: flex;
         flex-direction: column;
@@ -151,8 +149,7 @@
         margin-top: auto;
       }
 
-
-      /* Mobile */
+      /* Mobile (≤600px) */
       @media only screen and (max-width: 600px) {
         .contact-card {
           grid-template-columns: 1fr;
@@ -184,7 +181,6 @@
         }
       }
 
-      /* Tablet */
       @media only screen and (min-width: 601px) and (max-width: 991px) {
         .contact-card {
           grid-template-columns: 1fr 1fr;
@@ -192,7 +188,6 @@
         }
       }
 
-      /* Laptop  */
       @media only screen and (min-width: 992px) and (max-width: 1199px) {
         .contact-card {
           grid-template-columns: 1fr 1fr;
@@ -201,7 +196,6 @@
         }
       }
 
-      /* Desktop Besar */
       @media only screen and (min-width: 1200px) {
         .contact-card {
           grid-template-columns: 1fr 1fr;
@@ -225,8 +219,6 @@
         <i class="fa-solid fa-bars"></i>
       </div>
     </header>
-
-    <!-- Contact -->
     <main>
       <section class="contact-card">
         <div>
@@ -239,7 +231,7 @@
             to your message as soon as possible.
           </p>
           <div class="socials">
-            <a href="https://www.instagram.com/alfindraxyaka?igsh=OHNra2V5a3Z1YnVs&utm_source=qr"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
             <a href="#"><i class="fab fa-whatsapp"></i></a>
             <a href="#"><i class="fab fa-tiktok"></i></a>
           </div>
@@ -266,6 +258,35 @@
           ></textarea>
           <button type="submit">Submit</button>
         </form>
+        <p id="form-response" style="margin-top: 10px; color: #00abf0"></p>
+        <script>
+          const form = document.getElementById("contact-form");
+          const responseMsg = document.getElementById("form-response");
+          form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            responseMsg.textContent = "Mengirim wok sabar";
+            const formData = new FormData(form);
+            fetch(
+              "https://script.google.com/macros/s/AKfycbxfMHL8hKKhYFgTnLCSPmlKbnVyLRBZp3qmvaJSTP2JcB68IhLF_Sw5eluqcU_65IfHvA/exec",
+              { method: "POST", body: formData }
+            )
+              .then((res) => res.json())
+              .then((data) => {
+                if (data.result === "success" || data.result === "succes") {
+                  responseMsg.textContent = "Nah pesan berhasil terkirim✅";
+                  form.reset();
+                } else {
+                  responseMsg.textContent =
+                    "Terjadi kesalahan, coba lagi besok dah ❌";
+                }
+              })
+              .catch((err) => {
+                console.error(err);
+                responseMsg.textContent =
+                  "Gagal mengirim pesan lu belom mandi kali ⚠️";
+              });
+          });
+        </script>
       </section>
     </main>
 
@@ -280,4 +301,3 @@
     </script>
   </body>
 </html>
-
